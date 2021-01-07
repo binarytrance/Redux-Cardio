@@ -5,35 +5,14 @@ import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import {connect} from 'react-redux';
 
 class Counter extends Component {
-    state = {
-        counter: 0
-    }
-
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-        }
-    }
-
     render () {
         return (
             <div>
                 <CounterOutput value={this.props.cntr} />
-                <CounterControl label="Increment" clicked={() => this.props.onIncrementCounter( 'inc' )} />
-                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
-                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
-                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
+                <CounterControl label="Increment" clicked={() => this.props.onIncrementCounter()} />
+                <CounterControl label="Decrement" clicked={() => this.props.onDecrementCounter()}  />
+                <CounterControl label="Add 5" clicked={() => this.props.onAddFiveCounter()}  />
+                <CounterControl label="Subtract 5" clicked={() => this.props.onSubtractFiveCounter()}  />
             </div>
         );
     }
@@ -50,7 +29,10 @@ const mapStateToProps = state => { // this is the state provided to us by redux
 //this returns an obect whose props hold a reference to a function which gets executed to dispatch an action
 const mapDispatchToProps = dispatch => { // disaptch is a helper function which will call dispatch on the store BTS
     return {
-        onIncrementCounter: () => dispatch({type: 'INCREMENT'}) // this function will be available through onIncrement property. so to dispatch this action, we have to execute this property
+        onIncrementCounter: () => dispatch({type: 'INCREMENT'}), // this function will be available through onIncrement property. so to dispatch this action, we have to execute this property
+        onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
+        onAddFiveCounter: () => dispatch({type: 'ADD_FIVE'}),
+        onSubtractFiveCounter: () => dispatch({type: 'SUBTRACT_FIVE'})
     }
 }
 
