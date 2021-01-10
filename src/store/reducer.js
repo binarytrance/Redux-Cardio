@@ -1,36 +1,37 @@
+import * as actionTypes from './actionTypes';
 const initialState = {
     counter: 0,
     recordedState: []
 }
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'INCREMENT':
+        case actionTypes.INCREMENT:
         return {
             ...state,
             counter: state.counter + 1
         }
-        case 'DECREMENT':
+        case actionTypes.DECREMENT:
             return {
                 ...state,
                 counter: state.counter - 1
             }
-        case 'ADD':
+        case actionTypes.ADD:
             return {
                 ...state,
                 counter: state.counter +action.value
             }
-        case 'SUBTRACT':
+        case actionTypes.SUBTRACT:
             return {
                 ...state,
                 counter: state.counter - action.value
             }
-        case 'RECORD_STATE':
+        case actionTypes.RECORD_STATE:
             return {
                 ...state,
                 // adding elements to array immutably
                 recordedState: state.recordedState.concat({id: new Date(), counter: state.counter})
             }
-            case 'DELETE_RECORD':
+            case actionTypes.DELETE_RECORD:
                 return {
                     ...state,
                     // deleting element inside array immutably
