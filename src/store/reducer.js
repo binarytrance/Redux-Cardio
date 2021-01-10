@@ -1,32 +1,45 @@
 const initialState = {
     counter: 0,
+    recordedState: []
 }
 const reducer = (state = initialState, action) => {
-    if(action.type === 'INCREMENT') {
+    switch (action.type) {
+        case 'INCREMENT':
         return {
             ...state,
             counter: state.counter + 1
         }
-    }
-    if(action.type === 'DECREMENT') {
-        return {
-            ...state,
-            counter: state.counter - 1
+        case 'DECREMENT':
+            return {
+                ...state,
+                counter: state.counter - 1
+            }
+        case 'ADD':
+            return {
+                ...state,
+                counter: state.counter +action.value
+            }
+        case 'SUBTRACT':
+            return {
+                ...state,
+                counter: state.counter - action.value
+            }
+        case 'RECORD_STATE':
+            return {
+                ...state,
+                // adding elements to array immutably
+                recordedState: state.recordedState.concat({id: new Date(), counter: state.counter})
+            }
+            case 'DELETE_RECORD':
+                return {
+                    ...state,
+                    // deleting element inside array immutably
+                    recordedState: state.recordedState.filter(record => record.id !== action.recordId)
+                }
+            default:
+                return state;
         }
     }
-    if(action.type === 'ADD_FIVE') {
-        return {
-            ...state,
-            counter: state.counter + 5
-        }
-    }
-    if(action.type === 'SUBTRACT_FIVE') {
-        return {
-            ...state,
-            counter: state.counter - 5
-        }
-    }
-    return state;
-}
+
 
 export default reducer;

@@ -6,14 +6,24 @@ import {connect} from 'react-redux';
 
 class Counter extends Component {
     render () {
+        console.log(this.props.recordedState);
+
         return (
+        <React.Fragment>
             <div>
                 <CounterOutput value={this.props.cntr} />
                 <CounterControl label="Increment" clicked={() => this.props.onIncrementCounter()} />
                 <CounterControl label="Decrement" clicked={() => this.props.onDecrementCounter()}  />
-                <CounterControl label="Add 5" clicked={() => this.props.onAddFiveCounter()}  />
-                <CounterControl label="Subtract 5" clicked={() => this.props.onSubtractFiveCounter()}  />
+                <CounterControl label="Add 5" clicked={() => this.props.onAddCounter()}  />
+                <CounterControl label="Subtract 5" clicked={() => this.props.onSubtractCounter()}  />
             </div>
+            <button onClick={this.props.recordState}>CLick me</button>
+            <ul>
+                {this.props.recordedState.map(stateValue =>
+                    <li key={stateValue.id} onClick={() => this.props.onDeleteRecord(stateValue.id)}>{stateValue.counter}</li>
+                )}
+            </ul>
+        </React.Fragment>
         );
     }
 }
@@ -22,7 +32,8 @@ class Counter extends Component {
 // we do not manage and change the state, redux does it. hence, the state changed by redux are mapped to props
 const mapStateToProps = state => { // this is the state provided to us by redux
     return {
-        cntr: state.counter
+        cntr: state.counter,
+        recordedState: state.recordedState
     }
 }
 
@@ -31,8 +42,10 @@ const mapDispatchToProps = dispatch => { // disaptch is a helper function which 
     return {
         onIncrementCounter: () => dispatch({type: 'INCREMENT'}), // this function will be available through onIncrement property. so to dispatch this action, we have to execute this property
         onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
-        onAddFiveCounter: () => dispatch({type: 'ADD_FIVE'}),
-        onSubtractFiveCounter: () => dispatch({type: 'SUBTRACT_FIVE'})
+        onAddCounter: () => dispatch({type: 'ADD', value: 5}),
+        onSubtractCounter: () => dispatch({type: 'SUBTRACT', value: 5 }),
+        recordState: () => dispatch({type: 'RECORD_STATE'}),
+        onDeleteRecord: (id) =>dispatch({type: 'DELETE_RECORD', recordId: id})
     }
 }
 
