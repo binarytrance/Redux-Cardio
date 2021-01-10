@@ -17,7 +17,7 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={() => this.props.onAddCounter()}  />
                 <CounterControl label="Subtract 5" clicked={() => this.props.onSubtractCounter()}  />
             </div>
-            <button onClick={this.props.recordState}>CLick me</button>
+            <button onClick={() => this.props.recordState(this.props.cntr)}>CLick me</button>
             <ul>
                 {this.props.recordedState.map(stateValue =>
                     <li key={stateValue.id} onClick={() => this.props.onDeleteRecord(stateValue.id)}>{stateValue.counter}</li>
@@ -32,8 +32,8 @@ class Counter extends Component {
 // we do not manage and change the state, redux does it. hence, the state changed by redux are mapped to props
 const mapStateToProps = state => { // this is the state provided to us by redux
     return {
-        cntr: state.counter,
-        recordedState: state.recordedState
+        cntr: state.ctr.counter,
+        recordedState: state.rec.recordedState
     }
 }
 
@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => { // disaptch is a helper function which 
         onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
         onAddCounter: () => dispatch({type: actionTypes.ADD, value: 5}),
         onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, value: 5 }),
-        recordState: () => dispatch({type: actionTypes.RECORD_STATE}),
+        recordState: (result) => dispatch({type: actionTypes.RECORD_STATE, result: result}),
         onDeleteRecord: (id) =>dispatch({type: actionTypes.DELETE_RECORD, recordId: id})
     }
 }
