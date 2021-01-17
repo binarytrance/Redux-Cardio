@@ -18,7 +18,7 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={() => this.props.onAddCounter()}  />
                 <CounterControl label="Subtract 5" clicked={() => this.props.onSubtractCounter()}  />
             </div>
-            <button onClick={() => this.props.recordState(this.props.cntr)}>CLick me</button>
+            <button onClick={() => this.props.recordState(this.props.cntr)}>Click me</button>
             <ul>
                 {this.props.recordedState.map(stateValue =>
                     <li key={stateValue.id} onClick={() => this.props.onDeleteRecord(stateValue.id)}>{stateValue.counter}</li>
