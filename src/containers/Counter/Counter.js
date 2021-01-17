@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 class Counter extends Component {
     render () {
-        console.log(this.props.recordedState);
+        // console.log(this.props.recordedState);
 
         return (
         <React.Fragment>
@@ -27,10 +27,10 @@ class Counter extends Component {
         );
     }
 }
-
 // we store instructions about how the state managed by redux is used by the props in this component
 // we do not manage and change the state, redux does it. hence, the state changed by redux are mapped to props
 const mapStateToProps = state => { // this is the state provided to us by redux
+    // console.log(state)
     return {
         cntr: state.ctr.counter,
         recordedState: state.rec.recordedState
@@ -48,5 +48,6 @@ const mapDispatchToProps = dispatch => { // disaptch is a helper function which 
         onDeleteRecord: (id) =>dispatch({type: actionTypes.DELETE_RECORD, recordId: id})
     }
 }
+// console.log('asdf', mapStateToProps, mapDispatchToProps)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
