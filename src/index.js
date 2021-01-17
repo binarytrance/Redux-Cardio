@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 // import reducer from './store/reducer';
 import {Provider} from 'react-redux';
 import CounterReducer from './store/reducers/counter';
@@ -27,7 +28,7 @@ const logger = store => { // redux will give us the store by execting this fn
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger))); // takes reducer as input
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk))); // takes reducer as input
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();

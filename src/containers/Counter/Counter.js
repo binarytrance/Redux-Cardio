@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as actionCreators from '../../store/actions/actions';
+import * as actionCreators from '../../store/actions/index.js';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import {connect} from 'react-redux';
